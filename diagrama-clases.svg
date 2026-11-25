@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="920" viewBox="0 0 1400 920" role="img" aria-labelledby="title desc">
+<title id="title">Diagrama de clases del catálogo audiovisual</title>
+<desc id="desc">Modelo de contenidos audiovisuales y capas de vista, controlador y persistencia CSV.</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 Z" fill="#526277"/></marker><style>
+text{font-family:Arial,sans-serif;fill:#182433}.head{font-weight:bold;font-size:16px}.body{font-size:13px}.title{font-size:24px;font-weight:bold}.sub{font-size:14px;fill:#526277}.box{fill:#fff;stroke:#64748b;stroke-width:1.5}.base{fill:#edf5ff;stroke:#2670b8;stroke-width:2}.layer{fill:#f5f7fa;stroke:#98a5b5;stroke-width:1.5}.line{stroke:#526277;stroke-width:1.5;fill:none;marker-end:url(#arrow)}.assoc{stroke:#526277;stroke-width:1.5;fill:none}
+</style></defs>
+<rect width="1400" height="920" fill="#ffffff"/>
+<text x="36" y="42" class="title">Catálogo de contenidos audiovisuales</text>
+<text x="36" y="67" class="sub">Modelo de dominio, interacción MVC y almacenamiento CSV</text>
+
+<!-- Herencia -->
+<rect x="530" y="92" width="340" height="112" rx="8" class="base"/>
+<text x="550" y="119" class="head">&lt;&lt;abstract&gt;&gt; ContenidoAudiovisual</text><line x1="530" y1="130" x2="870" y2="130" stroke="#2670b8"/>
+<text x="550" y="153" class="body">id, titulo, duracionEnMinutos, genero</text><text x="550" y="178" class="body">obtenerDetalles(): String</text>
+
+<path d="M700 204 V238 H140 V274 M700 238 H420 V274 M700 238 H700 V274 M700 238 H980 V274 M700 238 H1260 V274" class="assoc"/>
+<path d="M140 274 V284 M420 274 V284 M700 274 V284 M980 274 V284 M1260 274 V284" class="line"/>
+
+<g><rect x="30" y="284" width="220" height="100" rx="7" class="box"/><text x="50" y="312" class="head">Pelicula</text><line x1="30" y1="323" x2="250" y2="323" stroke="#94a3b8"/><text x="50" y="348" class="body">estudio: String</text><text x="50" y="369" class="body">actores: List&lt;Actor&gt;</text></g>
+<g><rect x="310" y="284" width="220" height="100" rx="7" class="box"/><text x="330" y="312" class="head">SerieDeTV</text><line x1="310" y1="323" x2="530" y2="323" stroke="#94a3b8"/><text x="330" y="348" class="body">temporadas: List&lt;Temporada&gt;</text></g>
+<g><rect x="590" y="284" width="220" height="100" rx="7" class="box"/><text x="610" y="312" class="head">Documental</text><line x1="590" y1="323" x2="810" y2="323" stroke="#94a3b8"/><text x="610" y="348" class="body">tema: String</text><text x="610" y="369" class="body">investigador: Investigador?</text></g>
+<g><rect x="870" y="284" width="220" height="100" rx="7" class="box"/><text x="890" y="312" class="head">VideoYouTube</text><line x1="870" y1="323" x2="1090" y2="323" stroke="#94a3b8"/><text x="890" y="348" class="body">canal, url: String</text></g>
+<g><rect x="1150" y="284" width="220" height="100" rx="7" class="box"/><text x="1170" y="312" class="head">Cortometraje</text><line x1="1150" y1="323" x2="1370" y2="323" stroke="#94a3b8"/><text x="1170" y="348" class="body">director: String, anio: int</text></g>
+
+<!-- Asociaciones -->
+<rect x="30" y="430" width="220" height="90" rx="7" class="box"/><text x="50" y="458" class="head">Actor</text><line x1="30" y1="469" x2="250" y2="469" stroke="#94a3b8"/><text x="50" y="494" class="body">nombre, nacionalidad</text>
+<path d="M140 384 V430" class="line"/><text x="150" y="412" class="body">0..*</text>
+<rect x="310" y="430" width="220" height="90" rx="7" class="box"/><text x="330" y="458" class="head">Temporada</text><line x1="310" y1="469" x2="530" y2="469" stroke="#94a3b8"/><text x="330" y="494" class="body">numero, episodios, anio</text>
+<path d="M420 384 V430" class="line"/><text x="430" y="412" class="body">0..*</text>
+<rect x="590" y="430" width="220" height="90" rx="7" class="box"/><text x="610" y="458" class="head">Investigador</text><line x1="590" y1="469" x2="810" y2="469" stroke="#94a3b8"/><text x="610" y="494" class="body">nombre, institucion, especialidad</text>
+<path d="M700 384 V430" class="line"/><text x="710" y="412" class="body">0..1</text>
+
+<!-- MVC y persistencia -->
+<text x="36" y="586" class="head">Capas de la aplicación</text>
+<rect x="30" y="620" width="230" height="120" rx="8" class="layer"/><text x="50" y="650" class="head">Aplicacion</text><line x1="30" y1="662" x2="260" y2="662" stroke="#c1cad5"/><text x="50" y="688" class="body">Punto de entrada</text><text x="50" y="711" class="body">ensambla dependencias</text>
+<rect x="350" y="620" width="280" height="120" rx="8" class="layer"/><text x="370" y="650" class="head">CatalogoControlador</text><line x1="350" y1="662" x2="630" y2="662" stroke="#c1cad5"/><text x="370" y="688" class="body">coordina menú, catálogo y guardado</text><text x="370" y="711" class="body">recibe vista y almacén por constructor</text>
+<rect x="720" y="620" width="260" height="120" rx="8" class="layer"/><text x="740" y="650" class="head">VistaConsola</text><line x1="720" y1="662" x2="980" y2="662" stroke="#c1cad5"/><text x="740" y="688" class="body">menú, entradas y presentación</text>
+<rect x="1060" y="620" width="300" height="120" rx="8" class="layer"/><text x="1080" y="650" class="head">AlmacenCsv</text><line x1="1060" y1="662" x2="1360" y2="662" stroke="#c1cad5"/><text x="1080" y="688" class="body">implementa RepositorioCatalogo</text><text x="1080" y="711" class="body">usa CsvArchivo para formato CSV</text>
+<path d="M260 680 H350" class="line"/><path d="M630 680 H720" class="line"/><path d="M630 710 H1060" class="line"/>
+<text x="36" y="802" class="sub">Las clases del paquete uni1a forman el Modelo; el controlador coordina la vista y la persistencia.</text>
+</svg>

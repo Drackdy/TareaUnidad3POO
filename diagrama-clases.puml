@@ -1,0 +1,66 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+package "Modelo" {
+  abstract class ContenidoAudiovisual {
+    - id: int
+    - titulo: String
+    - duracionEnMinutos: int
+    - genero: String
+    + obtenerDetalles(): String
+  }
+  class Pelicula { - estudio: String }
+  class SerieDeTV { - temporadas: List<Temporada> }
+  class Documental { - tema: String }
+  class VideoYouTube { - canal: String; - url: String }
+  class Cortometraje { - director: String; - anio: int }
+  class Actor { - nombre: String; - nacionalidad: String }
+  class Temporada { - numero: int; - episodios: int; - anioEstreno: int }
+  class Investigador { - nombre: String; - institucion: String; - especialidad: String }
+}
+
+package "Vista" {
+  class VistaConsola {
+    + mostrarMenuYLeerOpcion(): int
+    + mostrarCatalogo(catalogo): void
+  }
+}
+package "Controlador" {
+  class CatalogoControlador {
+    - catalogo: List<ContenidoAudiovisual>
+    + iniciar(): void
+  }
+}
+package "Persistencia" {
+  class AlmacenCsv {
+    + guardar(carpeta, catalogo): void
+    + cargar(carpeta): List<ContenidoAudiovisual>
+  }
+  interface RepositorioCatalogo {
+    + guardar(carpeta, catalogo): void
+    + cargar(carpeta): List<ContenidoAudiovisual>
+  }
+  class CsvArchivo {
+    + escribir(archivo, filas): void
+    + leer(archivo): List<List<String>>
+  }
+}
+class Aplicacion
+
+ContenidoAudiovisual <|-- Pelicula
+ContenidoAudiovisual <|-- SerieDeTV
+ContenidoAudiovisual <|-- Documental
+ContenidoAudiovisual <|-- VideoYouTube
+ContenidoAudiovisual <|-- Cortometraje
+Pelicula o-- "0..*" Actor : elenco
+SerieDeTV *-- "0..*" Temporada
+Documental --> "0..1" Investigador
+Aplicacion ..> CatalogoControlador
+CatalogoControlador --> VistaConsola
+CatalogoControlador --> AlmacenCsv
+RepositorioCatalogo <|.. AlmacenCsv
+CatalogoControlador --> RepositorioCatalogo
+CatalogoControlador --> ContenidoAudiovisual
+AlmacenCsv ..> ContenidoAudiovisual
+AlmacenCsv --> CsvArchivo
+@enduml
