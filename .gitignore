@@ -1,7 +1,1 @@
-out/
-target/
-datos/
-*.class
-.project
-.classpath
-.settings/
+/bin/
